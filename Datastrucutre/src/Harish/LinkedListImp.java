@@ -218,7 +218,32 @@ public class LinkedListImp {
 
         return list;
     }
-
+     public static LinkedListImp reverseLinkedList(LinkedListImp list)
+     {
+         LinkNode current=list.head;
+         LinkNode prev=null;
+         LinkNode next=null;
+         while(current!=null)
+         {
+             next=current.next;
+             current.next=prev;
+             prev=current;
+             current=next;
+         }
+         list.head=prev;
+         return list;
+     }
+     public static LinkNode reverseLinkedRecursive(LinkNode head)
+     {
+         if(head==null || head.next==null)
+         {
+             return head;
+         }
+             LinkNode rest=reverseLinkedRecursive(head.next);
+            head.next.next=head;
+            head.next=null;
+         return rest;
+     }
     public static void main(String[] args) {
         LinkedListImp list = new LinkedListImp();
         list.add(9);
@@ -228,7 +253,7 @@ public class LinkedListImp {
         list.add(9);
         list.add(9);
         list.add(9);
-        list.add(9);
+        list.add(2);
 
         LinkedListImp list2 = new LinkedListImp();
         list2.add(9);
@@ -238,7 +263,13 @@ public class LinkedListImp {
 
 
         // accendingorder(list,list2).printList();
-        addTwoList(list, list2).printList();
-
+       // addTwoList(list, list2).printList();
+         // reverseLinkedList(list).printList();
+       LinkNode l= reverseLinkedRecursive(list.head);
+       while(l!=null)
+       {
+           System.out.println(l.value);
+           l=l.next;
+       }
     }
 }
