@@ -11,6 +11,7 @@ class LinkNode {
         this.next = null;
     }
 }
+
 public class LinkedListImp {
     LinkNode head;
 
@@ -29,6 +30,7 @@ public class LinkedListImp {
             last.next = linkNode;
         }
     }
+
     public void addFirst(Integer item) {
         LinkNode linkNode = new LinkNode(item);
         if (head == null) {
@@ -38,6 +40,7 @@ public class LinkedListImp {
             head = linkNode;
         }
     }
+
     public void add(Integer index, Integer in) {
         LinkNode linkNode = new LinkNode(in);
         if (head == null) {
@@ -57,6 +60,7 @@ public class LinkedListImp {
             }
         }
     }
+
     public Object get(Integer in) {
         LinkNode last = head;
         int count = 0;
@@ -71,6 +75,7 @@ public class LinkedListImp {
         }
         return new NullPointerException("index Excceded");
     }
+
     public void printList() {
         LinkNode current = head;
         while (current != null) {
@@ -79,6 +84,7 @@ public class LinkedListImp {
         }
         System.out.println("/n");
     }
+
     public boolean contains(Integer in) {
         if (head == null) {
             throw new NullPointerException("head is null");
@@ -93,6 +99,7 @@ public class LinkedListImp {
         }
         return false;
     }
+
     public void remove() {
         if (head == null) {
             throw new NoSuchElementException();
@@ -100,57 +107,49 @@ public class LinkedListImp {
             head = head.next;
         }
     }
-    public void remove(Integer in)
-    {
-        LinkNode last=head;
-        if(last.value==in)
-        {
-            head=last.next;
-        }
-       while(last.next != null)
-       {
-           if(last.next.value==in)
-           {
-            last.next=last.next.next;
-           }
-           last=last.next;
-       }
-    }
-    //merge linked list into one
-    public static LinkedListImp merge(LinkedListImp list,LinkedListImp list2)
-    {
-        LinkNode node=list.head;
-        LinkNode node1=list2.head;
-       LinkedListImp linkedListImp1 =new LinkedListImp();
-       linkedListImp1.add(-1);
 
-        LinkNode node3=linkedListImp1.head;
-        boolean l= true;
-        while(true)
-        {
-            if(node.next==null)
-            {
+    public void remove(Integer in) {
+        LinkNode last = head;
+        if (last.value == in) {
+            head = last.next;
+        }
+        while (last.next != null) {
+            if (last.next.value == in) {
+                last.next = last.next.next;
+            }
+            last = last.next;
+        }
+    }
+
+    //merge linked list into one
+    public static LinkedListImp merge(LinkedListImp list, LinkedListImp list2) {
+        LinkNode node = list.head;
+        LinkNode node1 = list2.head;
+        LinkedListImp linkedListImp1 = new LinkedListImp();
+        linkedListImp1.add(-1);
+
+        LinkNode node3 = linkedListImp1.head;
+        boolean l = true;
+        while (true) {
+            if (node.next == null) {
                 break;
             }
-            if(l==true) {
+            if (l == true) {
                 node3.next = node.next;
                 System.out.println(node.value);
             }
-            if(node.value==11 )
-            {
-                node3.next=node1;
-                while(node3.next!=null)
-                {
-                    node3=node3.next;
+            if (node.value == 11) {
+                node3.next = node1;
+                while (node3.next != null) {
+                    node3 = node3.next;
                 }
-                l=false;
+                l = false;
 
             }
-            if(node.value==15)
-            {
-                node3.next=node.next;
+            if (node.value == 15) {
+                node3.next = node.next;
             }
-            node=node.next;
+            node = node.next;
 
 
         }
@@ -158,65 +157,88 @@ public class LinkedListImp {
 
         return linkedListImp1;
     }
-    public static LinkedListImp accendingorder(LinkedListImp list,LinkedListImp list2)
-    {
-        LinkNode listhead=list.head;
-        LinkNode list2head=list2.head;
 
-        LinkedListImp list3=new LinkedListImp();
+    public static LinkedListImp accendingorder(LinkedListImp list, LinkedListImp list2) {
+        LinkNode listhead = list.head;
+        LinkNode list2head = list2.head;
+
+        LinkedListImp list3 = new LinkedListImp();
         list3.add(1);
-        LinkNode dummy =list3.head;
+        LinkNode dummy = list3.head;
         //LinkNode dummy=new LinkNode(-1);
-        LinkNode tail=dummy;
+        LinkNode tail = dummy;
 
-        while(true)
-        {
-            if(listhead ==null)
-            {
-                tail.next =list2head;
+        while (true) {
+            if (listhead == null) {
+                tail.next = list2head;
                 break;
             }
-            if(list2head==null)
-            {
-                tail.next=listhead;
+            if (list2head == null) {
+                tail.next = listhead;
                 break;
             }
-            if(listhead.value<= list2head.value)
-            {
-                 tail.next=listhead;
-                 listhead=listhead.next;
+            if (listhead.value <= list2head.value) {
+                tail.next = listhead;
+                listhead = listhead.next;
+            } else {
+                tail.next = list2head;
+                list2head = list2head.next;
             }
-            else
-            {
-              tail.next=list2head;
-              list2head=list2head.next;
-            }
-            tail=tail.next;
+            tail = tail.next;
         }
 
 
         return list3;
     }
 
+    public static LinkedListImp addTwoList(LinkedListImp list, LinkedListImp list2) {
+        LinkNode l = list.head;
+        LinkNode l2 = list2.head;
+        int ll = 0;
+        while (l != null || l2!=null) {
+            int lval=(l!=null) ? l.value : 0;
+            int lval2=(l2!=null) ? l2.value :0;
+            int value = lval+lval2 ;
+            if (value >= 10) {
+                if(l.next==null)
+                {
+                    l.value=value;
+                }else {
+                    l.value = (value % 10) +ll;
+                }
+
+                ll = (value+ll ) / 10;
+            } else {
+                l.value = value+ll;
+                ll=0;
+            }
+            l = l.next;
+            l2 = l2.next;
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
         LinkedListImp list = new LinkedListImp();
-        list.add(13);
-        list.add(123);
-        list.add(1232);
-        list.add(11);
-        list.add(12);
-        list.add(20);
-        list.add(14);
-        list.add(15);
-        list.add(16);
-        list.add(17);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+        list.add(9);
+
         LinkedListImp list2 = new LinkedListImp();
-        list2.add(12);
-        list2.add(99);
-        list2.add(55);
-        list2.add(11);
-        list2.add(134);// accendingorder(list,list2).printList();
-        merge(list, list2).printList();
+        list2.add(9);
+        list2.add(9);
+        list2.add(9);
+        list2.add(9);
+
+
+        // accendingorder(list,list2).printList();
+        addTwoList(list, list2).printList();
 
     }
 }

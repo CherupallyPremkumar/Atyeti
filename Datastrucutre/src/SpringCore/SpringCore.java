@@ -1,3 +1,4 @@
+/*
 package SpringCore;
 
 import org.springframework.context.ApplicationContext;
@@ -9,3 +10,4 @@ public class SpringCore {
         System.out.println("config loaded");
     }
 }
+*/
