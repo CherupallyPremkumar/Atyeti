@@ -1,5 +1,6 @@
 package Harish;
 
+import java.util.Hashtable;
 import java.util.NoSuchElementException;
 
 class LinkNode {
@@ -244,6 +245,120 @@ public class LinkedListImp {
             head.next=null;
          return rest;
      }
+    //Detect loop in a linked list using Hashing:
+     public static boolean detectLoopinLinkedList(LinkNode node)
+     {
+         Hashtable<Integer, Boolean> hashtable=new Hashtable<>();
+         while(node!= null)
+         {
+             if(hashtable.containsKey(node))
+             {
+                 return true;
+             }else{
+                 hashtable.put(node.value,true);
+             }
+             node=node.next;
+         }
+         return false;
+     }
+    //Detect loop in a linked list using Floyd’s Cycle-Finding Algorithm:
+     public static boolean FlyodCycleDetectLoop(LinkNode node)
+     {
+      LinkNode slow=node;
+      LinkNode fast=node;
+      while(slow!=null && fast!=null && fast.next!=null)
+      {
+
+          slow=slow.next;
+          fast=fast.next.next;
+          if(slow==fast)
+          {
+              return true;
+          }
+      }
+
+    return false;
+     }
+   // Detect loop in a linked list by Marking visited nodes without modifying Node structure:
+    public static boolean detectloopDummyNode(LinkNode node)
+    {
+        LinkNode temp=new LinkNode(Integer.MIN_VALUE);
+        while(node!=null)
+        {
+
+            if(node.next==temp)
+            {
+                return true;
+            }else if(node.next==null)
+            {
+                return false;
+            }
+            LinkNode next=node.next;
+
+            node.next=temp;
+            node=next;
+        }
+
+ return false;
+    }
+    public static int[][] GameofLife(int[][] arr)
+    {
+        int[][] arr2 = new int[arr.length][arr.length];
+        for(int i=0;i<arr.length;i++)
+        {
+            for (int j=0;j<arr.length;j++)
+            {
+                arr2[i][j]=arr[i][j];
+
+            }
+        }
+        for(int i=0;i<arr.length;i++)
+        {
+            for (int j=0;j<arr.length;j++)
+            {
+                int curentelement=arr[i][j];
+              int live=checkrules(arr,i,j,0);
+                if(curentelement==1)
+                {
+                  //  if(live>=2)
+                }
+
+            }
+        }
+
+        return arr;
+    }
+    public static int checkrules(int[][] arr,int row ,int col,int count)
+    {
+
+        int live=1;
+        int neibour=0;
+            if (arr[row][col+1] == live) {
+                 neibour++;
+            }
+            if(arr[row+1][col+1] == live) {
+              neibour++;
+            }
+            if(arr[row+1][col] == live) {
+              neibour++;
+            }
+            if(arr[row][col-1] == live) {
+              neibour++;
+            }
+            if(arr[row-1][col-1] == live) {
+              neibour++;
+            }
+            if(arr[row-1][col] == live) {
+              neibour++;
+            }
+            if(arr[row+1][col-1] == live) {
+              neibour++;
+            }
+
+            return live;
+    }
+
+
     public static void main(String[] args) {
         LinkedListImp list = new LinkedListImp();
         list.add(9);
@@ -265,11 +380,20 @@ public class LinkedListImp {
         // accendingorder(list,list2).printList();
        // addTwoList(list, list2).printList();
          // reverseLinkedList(list).printList();
-       LinkNode l= reverseLinkedRecursive(list.head);
+      /* LinkNode l= reverseLinkedRecursive(list.head);
        while(l!=null)
        {
            System.out.println(l.value);
            l=l.next;
-       }
+       }*/
+       LinkNode n=new LinkNode(-1);
+       LinkNode n1=new LinkNode(0);
+       LinkNode n2=new LinkNode(2);
+       LinkNode n3=new LinkNode(3);
+       n.next=n1;
+       n1.next=n2;
+       n2.next=n3;
+      //n3.next=n1;
+        System.out.println(detectloopDummyNode(n));
     }
 }
